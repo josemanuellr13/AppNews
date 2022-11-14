@@ -1,5 +1,6 @@
 package com.example.appnews
 
+import android.icu.text.SimpleDateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.appnews.databinding.NoticiaItemBinding
 import com.example.appnews.model.ArticleModel
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class NoticiasAdapter() : RecyclerView.Adapter<NoticiasAdapter.ViewHolder>(){
     var noticias = emptyList<ArticleModel>()
@@ -33,11 +36,15 @@ class NoticiasAdapter() : RecyclerView.Adapter<NoticiasAdapter.ViewHolder>(){
         private val binding = NoticiaItemBinding.bind(view)
 
         fun bind(article: ArticleModel){
+            // Convertir string a fecha hace falta api 26
             binding.tvAutor.text = "Por " +  article.source.name
-            binding.tvFecha.text = article.publishedAt + "\uD83D\uDD51"
+            binding.tvFecha.text = "16/11/2022" + "\uD83D\uDD51"
             binding.tvTitulo.text = article.title
             binding.tvDescripcion.text = article.description
-            binding.ivPortada.glide(article.urlToImage)
+            if(article.urlToImage != null){
+                binding.ivPortada.glide(article.urlToImage)
+            }
+
 
         }
     }

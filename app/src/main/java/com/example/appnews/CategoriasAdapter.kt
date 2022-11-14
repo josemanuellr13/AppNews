@@ -38,7 +38,7 @@ class CategoriasAdapter() : RecyclerView.Adapter<CategoriasAdapter.ViewHolder>()
             binding.texto.text = categoria.texto
 
             if(isSelected){
-                //binding.texto.backgroundTintList = getColorStateList(pa,android.R.color.black)
+                binding.texto.setPressed(true)
             }
         }
     }
