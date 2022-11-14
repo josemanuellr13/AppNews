@@ -38,7 +38,7 @@ class NoticiasAdapter() : RecyclerView.Adapter<NoticiasAdapter.ViewHolder>(){
         fun bind(article: ArticleModel){
             // Convertir string a fecha hace falta api 26
             binding.tvAutor.text = "Por " +  article.source.name
-            binding.tvFecha.text = "16/11/2022" + "\uD83D\uDD51"
+            binding.tvFecha.text = "16/11/2022 " + "\uD83D\uDD51"
             binding.tvTitulo.text = article.title
             binding.tvDescripcion.text = article.description
             if(article.urlToImage != null){

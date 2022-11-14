@@ -81,6 +81,7 @@ class MainActivity : AppCompatActivity() {
     private fun noticiasCustom(valor: String){
         CoroutineScope(Dispatchers.Main).launch{
             binding.progressBar.visibility = View.VISIBLE
+            Log.i("VALOR",valor)
             val result = withContext(Dispatchers.IO) { NewsDbClient.service.customNews(valor,getString(R.string.api_key)) }
 
             // Como limitar mejor la cant de respuesta que me trae la API
