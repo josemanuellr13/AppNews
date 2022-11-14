@@ -10,7 +10,7 @@ import com.example.appnews.databinding.ApartadoCategoriaItemBinding
 import com.example.appnews.model.CategoriaModel
 import java.time.chrono.JapaneseEra.values
 
-class CategoriasAdapter() : RecyclerView.Adapter<CategoriasAdapter.ViewHolder>(){
+class CategoriasAdapter( val listener: () -> Unit) : RecyclerView.Adapter<CategoriasAdapter.ViewHolder>(){
     var categorias = emptyList<CategoriaModel>()
     var selectedCategoria = 0
 
@@ -26,7 +26,10 @@ class CategoriasAdapter() : RecyclerView.Adapter<CategoriasAdapter.ViewHolder>()
         holder.bind(categoria,true)
         holder.itemView.setOnClickListener(){
             this.selectedCategoria = position
+            listener
         }
+
+
     }
 
     override fun getItemCount(): Int = categorias.size

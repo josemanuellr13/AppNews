@@ -1,24 +1,30 @@
 package com.example.appnews
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.telecom.RemoteConnection
 import android.util.Log
 import android.view.View
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.appnews.databinding.ActivityMainBinding
-import com.example.appnews.model.ArticleModel
 import com.example.appnews.model.CategoriaModel
-import com.example.appnews.model.NewsApiService
 import com.example.appnews.model.NewsDbClient
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
 
 class MainActivity : AppCompatActivity() {
-    private val adapterCategorias = CategoriasAdapter()
+    // Atributos
+    private val adapterCategorias = CategoriasAdapter(){
+        noticiasCustom("cheese")
+    }
     private val adapterNoticias = NoticiasAdapter()
-
     private lateinit var binding : ActivityMainBinding
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
+
+    // Metodos
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -37,6 +43,12 @@ class MainActivity : AppCompatActivity() {
 
         binding.buscar.setOnClickListener(){
             noticiasCustom(binding.texto.text.toString())
+        }
+
+        binding.srla.setOnRefreshListener {
+            loadNoticias()
+            binding.srla.isRefreshing = false
+
         }
     }
 

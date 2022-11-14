@@ -8,10 +8,10 @@ import retrofit2.http.Query
 interface NewsApiService{
 
 
-        @GET("top-headlines?country=us")
+        @GET("top-headlines?language=es")
         suspend fun popularNews(@Query("apikey") apiKey: String): Result
 
-        @GET("everything?searchIn=title")
+        @GET("everything?searchIn=title?language=es")
         suspend fun customNews(@Query("q") content : String ,@Query("apikey") apiKey: String): Result
 
 }
