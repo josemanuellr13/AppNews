@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.appnews.databinding.NoticiaItemBinding
@@ -27,6 +28,7 @@ class NoticiasAdapter() : RecyclerView.Adapter<NoticiasAdapter.ViewHolder>(){
 
         holder.bind(noticia)
         holder.itemView.setOnClickListener(){
+            Toast.makeText(holder.itemView.getContext(), "Sign in", Toast.LENGTH_LONG).show()
 
         }
     }
@@ -37,20 +39,14 @@ class NoticiasAdapter() : RecyclerView.Adapter<NoticiasAdapter.ViewHolder>(){
         private val binding = NoticiaItemBinding.bind(view)
 
         fun bind(article: ArticleModel){
-
-
-
-
-
             binding.tvAutor.text = "Por " +  article.source.name
             binding.tvFecha.text = article.publishedAt.substring(0,10) + " \uD83D\uDD51"
             binding.tvTitulo.text = article.title
             binding.tvDescripcion.text = article.description
+
             if(article.urlToImage != null){
                 binding.ivPortada.glide(article.urlToImage)
             }
-
-
         }
     }
 }

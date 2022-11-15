@@ -50,10 +50,19 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/srla"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
+
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcNoticias"
             android:layout_width="match_parent"
@@ -70,5 +79,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:indeterminate="true"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tvEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No hay noticias"
+        android:visibility="gone"
         android:layout_gravity="center"/>
+    </FrameLayout>
 </LinearLayout>

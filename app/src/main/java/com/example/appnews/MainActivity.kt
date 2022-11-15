@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.appnews.databinding.ActivityMainBinding
 import com.example.appnews.model.CategoriaModel
 import com.example.appnews.model.NewsDbClient
+import com.example.appnews.model.Result
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,7 +22,8 @@ import kotlinx.coroutines.withContext
 class MainActivity : AppCompatActivity() {
     // Atributos
     private val adapterCategorias = CategoriasAdapter(){
-        noticiasCustom("cheese")
+        loadNoticias(it.texto)
+
     }
     private val adapterNoticias = NoticiasAdapter()
     private lateinit var binding : ActivityMainBinding
@@ -39,17 +42,18 @@ class MainActivity : AppCompatActivity() {
         loadCategorias()
 
         if(adapterNoticias.itemCount == 0) {
-            loadNoticias()
+            loadNoticias(null)
         }
 
         // Al clickear el btn de buscar
         binding.buscar.setOnClickListener(){
-            noticiasCustom(binding.texto.text.toString())
+            loadNoticias(binding.texto.text.toString())
+         //   noticiasCustom(binding.texto.text.toString())
         }
 
         // Al refrescar el RecyclerView
         binding.srla.setOnRefreshListener {
-            loadNoticias()
+            loadNoticias(null)
             binding.srla.isRefreshing = false
 
         }
@@ -61,45 +65,56 @@ class MainActivity : AppCompatActivity() {
             CategoriaModel("Worldwide",false),
             CategoriaModel("España",false),
             CategoriaModel("Política",false),
-            CategoriaModel("Informática",false)
+            CategoriaModel("Informática",false),
+            CategoriaModel("Fútbol",false)
+
         )
 
         adapterCategorias.categorias = categorias
     }
 
 
-    private fun loadNoticias(){
-        Log.e("ENTRADA","Entra en loadNoticias")
+
+    // Si el valor es nulo tomará las noticias + populares
+    // Si contiene valor, buscará las noticias relacionadas con el valor
+    private fun loadNoticias(valor: String?){
+        var result: Result? = null
+
         CoroutineScope(Dispatchers.Main).launch{
           binding.progressBar.visibility = View.VISIBLE
-            val result = withContext(Dispatchers.IO) { NewsDbClient.service.popularNews(getString(R.string.api_key)) }
 
-            adapterNoticias.noticias = result.articles.subList(0,20)
+            // Obtenemos datos
+            if(valor == null)
+                 result = withContext(Dispatchers.IO) { NewsDbClient.service.popularNews(getString(R.string.api_key)) }
+            else
+                 result = withContext(Dispatchers.IO) { NewsDbClient.service.customNews(valor,getString(R.string.api_key)) }
+
+
+            // Controlamos la cantidad de información mostrada
+            if(result!!.articles.size > 20) {
+                adapterNoticias.noticias = result!!.articles.subList(0, 20)
+
+            }else{
+                    adapterNoticias.noticias = result!!.articles
+                }
+
+            // Notificamos cambios
             adapterNoticias.notifyDataSetChanged()
             binding.progressBar.visibility = View.GONE
+
+        }
+
+
 
         }
 
     }
 
 
-    // Buscamos noticias en base al valor pasado
-    private fun noticiasCustom(valor: String){
-        CoroutineScope(Dispatchers.Main).launch{
-            binding.progressBar.visibility = View.VISIBLE
-            Log.i("VALOR",valor)
-            val result = withContext(Dispatchers.IO) { NewsDbClient.service.customNews(valor,getString(R.string.api_key)) }
-
-            adapterNoticias.noticias = result.articles.subList(0,10)
-            adapterNoticias.notifyDataSetChanged()
-            binding.progressBar.visibility = View.GONE
 
 
 
-        }
-    }
 
 
-}
 
 
