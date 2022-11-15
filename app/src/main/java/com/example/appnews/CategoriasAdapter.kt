@@ -1,18 +1,17 @@
 package com.example.appnews
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.appcompat.content.res.AppCompatResources.getColorStateList
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appnews.databinding.ApartadoCategoriaItemBinding
 import com.example.appnews.model.CategoriaModel
-import java.time.chrono.JapaneseEra.values
 
 class CategoriasAdapter( val listener: () -> Unit) : RecyclerView.Adapter<CategoriasAdapter.ViewHolder>(){
     var categorias = emptyList<CategoriaModel>()
-    var selectedCategoria = 0
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.apartado_categoria_item,parent,false)
@@ -21,12 +20,14 @@ class CategoriasAdapter( val listener: () -> Unit) : RecyclerView.Adapter<Catego
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val categoria = categorias[position]
+        var categoria = categorias[position]
 
-        holder.bind(categoria,true)
+        holder.bind(categoria,position)
+
         holder.itemView.setOnClickListener(){
-            this.selectedCategoria = position
-            listener
+            categoria.seleccionado = true
+
+            this.notifyDataSetChanged()
         }
 
 
@@ -37,11 +38,12 @@ class CategoriasAdapter( val listener: () -> Unit) : RecyclerView.Adapter<Catego
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view){
         private val binding = ApartadoCategoriaItemBinding.bind(view)
 
-        fun bind(categoria: CategoriaModel, isSelected: Boolean){
+        fun bind(categoria: CategoriaModel, position: Int){
             binding.texto.text = categoria.texto
 
-            if(isSelected){
-                binding.texto.setPressed(true)
+            if(categoria.seleccionado){
+                binding.texto.setBackgroundColor(Color.DKGRAY)
+                binding.texto.setTextColor(Color.WHITE)
             }
         }
     }

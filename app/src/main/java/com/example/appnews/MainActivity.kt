@@ -1,8 +1,11 @@
 package com.example.appnews
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.appnews.databinding.ActivityMainBinding
@@ -33,18 +36,18 @@ class MainActivity : AppCompatActivity() {
         binding.rcCategorias.adapter = adapterCategorias
         binding.rcNoticias.adapter = adapterNoticias
 
-        if(adapterCategorias.itemCount == 0) {
-            loadCategorias()
-        }
+        loadCategorias()
 
         if(adapterNoticias.itemCount == 0) {
             loadNoticias()
         }
 
+        // Al clickear el btn de buscar
         binding.buscar.setOnClickListener(){
             noticiasCustom(binding.texto.text.toString())
         }
 
+        // Al refrescar el RecyclerView
         binding.srla.setOnRefreshListener {
             loadNoticias()
             binding.srla.isRefreshing = false
@@ -52,13 +55,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Cargamos las categorias
     private fun loadCategorias(){
         val categorias : List<CategoriaModel> = listOf(
-            CategoriaModel("Worldwide"),
-            CategoriaModel("España"),
-            CategoriaModel("Política"),
-            CategoriaModel("Informática")
+            CategoriaModel("Worldwide",false),
+            CategoriaModel("España",false),
+            CategoriaModel("Política",false),
+            CategoriaModel("Informática",false)
         )
+
         adapterCategorias.categorias = categorias
     }
 
@@ -70,6 +75,7 @@ class MainActivity : AppCompatActivity() {
             val result = withContext(Dispatchers.IO) { NewsDbClient.service.popularNews(getString(R.string.api_key)) }
 
             adapterNoticias.noticias = result.articles.subList(0,20)
+            adapterNoticias.notifyDataSetChanged()
             binding.progressBar.visibility = View.GONE
 
         }
@@ -84,8 +90,6 @@ class MainActivity : AppCompatActivity() {
             Log.i("VALOR",valor)
             val result = withContext(Dispatchers.IO) { NewsDbClient.service.customNews(valor,getString(R.string.api_key)) }
 
-            // Como limitar mejor la cant de respuesta que me trae la API
-            // pq el teclado se abre solo x defecto¿?
             adapterNoticias.noticias = result.articles.subList(0,10)
             adapterNoticias.notifyDataSetChanged()
             binding.progressBar.visibility = View.GONE
@@ -94,6 +98,8 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+
+
 }
 
 
