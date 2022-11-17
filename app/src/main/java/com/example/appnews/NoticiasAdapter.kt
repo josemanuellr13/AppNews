@@ -14,7 +14,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class NoticiasAdapter() : RecyclerView.Adapter<NoticiasAdapter.ViewHolder>(){
+class NoticiasAdapter(val listener :(ArticleModel) -> Unit) : RecyclerView.Adapter<NoticiasAdapter.ViewHolder>(){
     var noticias = emptyList<ArticleModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,6 +28,7 @@ class NoticiasAdapter() : RecyclerView.Adapter<NoticiasAdapter.ViewHolder>(){
 
         holder.bind(noticia)
         holder.itemView.setOnClickListener(){
+            listener(noticia)
             Toast.makeText(holder.itemView.getContext(), "Sign in", Toast.LENGTH_LONG).show()
 
         }

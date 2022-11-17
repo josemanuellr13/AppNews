@@ -1,15 +1,15 @@
 package com.example.appnews
 
-import android.app.Activity
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.appnews.databinding.ActivityMainBinding
+import com.example.appnews.databinding.FragmentNoticiasBinding
 import com.example.appnews.model.CategoriaModel
 import com.example.appnews.model.NewsDbClient
 import com.example.appnews.model.Result
@@ -19,22 +19,24 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class MainActivity : AppCompatActivity() {
+class NoticiasFragment : Fragment(R.layout.fragment_noticias) {
     // Atributos
     private val adapterCategorias = CategoriasAdapter(){
         loadNoticias(it.texto)
-
     }
-    private val adapterNoticias = NoticiasAdapter()
-    private lateinit var binding : ActivityMainBinding
+
+    private val adapterNoticias = NoticiasAdapter(){
+        val intent = Intent(this,DetailNoticiaFragment::class.java)
+    }
+    private lateinit var binding : FragmentNoticiasBinding
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
 
     // Metodos
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding = FragmentNoticiasBinding.bind(view)
 
         binding.rcCategorias.adapter = adapterCategorias
         binding.rcNoticias.adapter = adapterNoticias
@@ -57,11 +59,13 @@ class MainActivity : AppCompatActivity() {
             binding.srla.isRefreshing = false
 
         }
+
     }
 
     // Cargamos las categorias
     private fun loadCategorias(){
         val categorias : List<CategoriaModel> = listOf(
+            CategoriaModel("Trending",true),
             CategoriaModel("Worldwide",false),
             CategoriaModel("España",false),
             CategoriaModel("Política",false),
@@ -77,10 +81,12 @@ class MainActivity : AppCompatActivity() {
 
     // Si el valor es nulo tomará las noticias + populares
     // Si contiene valor, buscará las noticias relacionadas con el valor
+
     private fun loadNoticias(valor: String?){
         var result: Result? = null
 
-        CoroutineScope(Dispatchers.Main).launch{
+
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main){
           binding.progressBar.visibility = View.VISIBLE
 
             // Obtenemos datos
@@ -107,7 +113,6 @@ class MainActivity : AppCompatActivity() {
 
 
         }
-
     }
 
 
