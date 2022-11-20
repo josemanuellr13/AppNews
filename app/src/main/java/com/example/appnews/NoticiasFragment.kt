@@ -1,19 +1,16 @@
 package com.example.appnews
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.appnews.databinding.FragmentNoticiasBinding
+import com.example.appnews.model.ArticleModel
 import com.example.appnews.model.CategoriaModel
 import com.example.appnews.model.NewsDbClient
 import com.example.appnews.model.Result
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -26,8 +23,13 @@ class NoticiasFragment : Fragment(R.layout.fragment_noticias) {
     }
 
     private val adapterNoticias = NoticiasAdapter(){
-        val intent = Intent(this,DetailNoticiaFragment::class.java)
+        val bundle = Bundle()
+        bundle.putParcelable("noticia_clickeada",it)
+       // findNavController().navigate(R.id.action_noticiasFragment_to_detailNoticiaFragment, bundle)
+        findNavController().navigate(R.id.action_noticiasFragment_to_detailNoticiaFragment)
+
     }
+
     private lateinit var binding : FragmentNoticiasBinding
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 

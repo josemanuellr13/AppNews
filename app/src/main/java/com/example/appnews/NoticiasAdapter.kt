@@ -29,8 +29,6 @@ class NoticiasAdapter(val listener :(ArticleModel) -> Unit) : RecyclerView.Adapt
         holder.bind(noticia)
         holder.itemView.setOnClickListener(){
             listener(noticia)
-            Toast.makeText(holder.itemView.getContext(), "Sign in", Toast.LENGTH_LONG).show()
-
         }
     }
 
@@ -40,7 +38,7 @@ class NoticiasAdapter(val listener :(ArticleModel) -> Unit) : RecyclerView.Adapt
         private val binding = NoticiaItemBinding.bind(view)
 
         fun bind(article: ArticleModel){
-            binding.tvAutor.text = "Por " +  article.source.name
+            binding.tvAutor.text = "Por " +  article.source!!.name
             binding.tvFecha.text = article.publishedAt.substring(0,10) + " \uD83D\uDD51"
             binding.tvTitulo.text = article.title
             binding.tvDescripcion.text = article.description

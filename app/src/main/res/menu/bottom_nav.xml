@@ -6,9 +6,7 @@
         android:id="@+id/home"
         android:icon="@drawable/ic_baseline_home_24"/>
 
-    <item android:title="Noticia"
-        android:id="@+id/noticia"
-        android:icon="@drawable/ic_baseline_newspaper_24"/>
+
 
     <item android:title="Favoritos"
         android:id="@+id/favoritos"
