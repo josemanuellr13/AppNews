@@ -7,11 +7,27 @@
     android:background="@color/background"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="250dp"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:clickable="true"
+            android:layout_marginRight="20dp"
+            app:srcCompat="@drawable/ic_baseline_favorite_24"
+            android:background="@drawable/shape"
+            android:backgroundTint="@color/white"/>
+
+        <ImageView
+            android:id="@+id/ivFoto"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,8 +56,12 @@
                 android:id="@+id/tvAutor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Por Antonio Jose" />
+                android:background="@drawable/shape"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="2dp"
+                android:text="Por Antonio Jose"
+                 />
 
             <TextView
                 android:id="@+id/tvFecha"
@@ -49,15 +69,17 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:text="Publicado el 26/10/2022" />
+                android:text="Publicado el 26/10/2022"
+                />
         </LinearLayout>
 
         <TextView
             android:id="@+id/tvContenido"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp"
-            android:text="Contenido" />
+            android:paddingTop="10dp"
+            android:text="Contenido"
+            android:layout_marginBottom="10dp"/>
 
         <Button
             android:id="@+id/button"

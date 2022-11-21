@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import com.bumptech.glide.Glide
 import com.example.appnews.databinding.FragmentDetailNoticiaBinding
 import com.example.appnews.model.ArticleModel
 
@@ -21,10 +23,19 @@ class DetailNoticiaFragment : Fragment(R.layout.fragment_detail_noticia) {
         val noticia = arguments?.getParcelable<ArticleModel>(noticia)
 
         if (noticia != null) {
-            binding.tvAutor.text = noticia.author
+            binding.tvAutor.text ="Por " + noticia.source.name
             binding.tvTitulo.text = noticia.title
-            binding.tvContenido.text = noticia.description
+            binding.tvContenido.text = noticia.description + noticia.content
+
+            if(noticia.urlToImage != null){
+                binding.ivFoto.glide(noticia.urlToImage)
+            }else{
+                binding.ivFoto.glide("https://tecnodemos.junior-report.media/wp-content/uploads/2020/08/Noticia-scaled.jpg")
+            }
         }
 
+    }
+    fun ImageView.glide(url: String){
+        Glide.with(this).load(url).into(this)
     }
 }

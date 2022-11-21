@@ -8,7 +8,9 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -41,8 +43,12 @@ class MainHome : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener {
 
             when(it.itemId){
-                R.id.home -> replaceFragment(NoticiasFragment(),null)
-                R.id.favoritos -> replaceFragment(NoticiasFavoritasFragment(),getNoticiasFavs())
+              //  R.id.home -> replaceFragment(NoticiasFragment(),null)
+
+                R.id.home ->  navController.navigate(R.id.action_noticiasFavoritasFragment_to_noticiasFragment)
+                R.id.favoritos -> navController.navigate(R.id.action_noticiasFragment_to_noticiasFavoritasFragment)
+              //  R.id.favoritos -> replaceFragment(NoticiasFavoritasFragment(),getNoticiasFavs())
+
                 else -> { }
             }
 
