@@ -1,6 +1,7 @@
 package com.example.appnews
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -25,8 +26,9 @@ class NoticiasFragment : Fragment(R.layout.fragment_noticias) {
     private val adapterNoticias = NoticiasAdapter(){
         val bundle = Bundle()
         bundle.putParcelable("noticia_clickeada",it)
-       // findNavController().navigate(R.id.action_noticiasFragment_to_detailNoticiaFragment, bundle)
-        findNavController().navigate(R.id.action_noticiasFragment_to_detailNoticiaFragment)
+        Log.i("NOTICIA clickeada",it.toString())
+        findNavController().navigate(R.id.action_noticiasFragment_to_detailNoticiaFragment, bundle)
+    //    findNavController().navigate(R.id.action_noticiasFragment_to_detailNoticiaFragment)
 
     }
 
@@ -52,14 +54,13 @@ class NoticiasFragment : Fragment(R.layout.fragment_noticias) {
         // Al clickear el btn de buscar
         binding.buscar.setOnClickListener(){
             loadNoticias(binding.texto.text.toString())
-         //   noticiasCustom(binding.texto.text.toString())
+
         }
 
         // Al refrescar el RecyclerView
         binding.srla.setOnRefreshListener {
             loadNoticias(null)
             binding.srla.isRefreshing = false
-
         }
 
     }
@@ -83,7 +84,6 @@ class NoticiasFragment : Fragment(R.layout.fragment_noticias) {
 
     // Si el valor es nulo tomará las noticias + populares
     // Si contiene valor, buscará las noticias relacionadas con el valor
-
     private fun loadNoticias(valor: String?){
         var result: Result? = null
 

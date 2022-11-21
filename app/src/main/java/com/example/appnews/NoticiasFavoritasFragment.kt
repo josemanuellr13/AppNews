@@ -19,7 +19,7 @@ class NoticiasFavoritasFragment : Fragment(R.layout.fragment_noticias_favoritas)
     }
     // Atributos
     private val adapterNoticias = NoticiasAdapter(){
-        findNavController().navigate(R.id.action_noticiasFragment_to_detailNoticiaFragment)
+        findNavController().navigate(R.id.action_noticiasFavoritasFragment_to_detailNoticiaFragment)
     }
 
     private lateinit var binding : FragmentNoticiasFavoritasBinding

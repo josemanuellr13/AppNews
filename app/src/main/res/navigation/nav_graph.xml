@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_noticiasFavoritasFragment_to_detailNoticiaFragment"
             app:destination="@id/detailNoticiaFragment" />
+        <action
+            android:id="@+id/action_noticiasFavoritasFragment_to_noticiasFragment"
+            app:destination="@id/noticiasFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailNoticiaFragment"
@@ -30,5 +33,8 @@
         <action
             android:id="@+id/action_detailNoticiaFragment_to_noticiasFragment"
             app:destination="@id/noticiasFragment" />
+        <action
+            android:id="@+id/action_detailNoticiaFragment_to_noticiasFavoritasFragment"
+            app:destination="@id/noticiasFavoritasFragment" />
     </fragment>
 </navigation>

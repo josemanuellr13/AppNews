@@ -14,7 +14,6 @@ class DetailNoticiaFragment : Fragment(R.layout.fragment_detail_noticia) {
         const val noticia = "noticia_clickeada"
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -22,7 +21,9 @@ class DetailNoticiaFragment : Fragment(R.layout.fragment_detail_noticia) {
         val noticia = arguments?.getParcelable<ArticleModel>(noticia)
 
         if (noticia != null) {
-            binding.tvAutor.text = noticia.title
+            binding.tvAutor.text = noticia.author
+            binding.tvTitulo.text = noticia.title
+            binding.tvContenido.text = noticia.description
         }
 
     }

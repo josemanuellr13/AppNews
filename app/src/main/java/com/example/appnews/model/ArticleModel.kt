@@ -8,8 +8,8 @@ import java.io.Serializable
 @Parcelize
 data class ArticleModel (
 
-    val source : Source?,
-    val author : String,
+    val source : Source,
+    val author : String?,
     val title : String,
     val description : String,
     val url : String,
