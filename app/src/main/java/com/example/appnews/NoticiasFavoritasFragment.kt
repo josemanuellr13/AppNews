@@ -2,6 +2,7 @@ package com.example.appnews
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -14,12 +15,13 @@ import kotlinx.coroutines.withContext
 
 class NoticiasFavoritasFragment : Fragment(R.layout.fragment_noticias_favoritas) {
     companion object{
-
         const val LISTA_noticias = "noticiasFavs"
     }
+
     // Atributos
     private val adapterNoticias = NoticiasAdapter(){
-        findNavController().navigate(R.id.action_noticiasFavoritasFragment_to_detailNoticiaFragment)
+        val bundle = bundleOf("noticia_clickeada" to it)
+        findNavController().navigate(R.id.detailNoticiaFragment, bundle)
     }
 
     private lateinit var binding : FragmentNoticiasFavoritasBinding

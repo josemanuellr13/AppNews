@@ -41,14 +41,10 @@ class MainHome : AppCompatActivity() {
 
         // Navegacion del menu
         binding.bottomNavigationView.setOnItemSelectedListener {
-
+            val bundle = bundleOf(NoticiasFavoritasFragment.LISTA_noticias to getNoticiasFavs())
             when(it.itemId){
-              //  R.id.home -> replaceFragment(NoticiasFragment(),null)
-
-                R.id.home ->  navController.navigate(R.id.action_noticiasFavoritasFragment_to_noticiasFragment)
-                R.id.favoritos -> navController.navigate(R.id.action_noticiasFragment_to_noticiasFavoritasFragment)
-              //  R.id.favoritos -> replaceFragment(NoticiasFavoritasFragment(),getNoticiasFavs())
-
+                R.id.home ->  navController.navigate(R.id.noticiasFragment)
+                R.id.favoritos -> navController.navigate(R.id.noticiasFavoritasFragment,bundle)
                 else -> { }
             }
 
