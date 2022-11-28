@@ -1,4 +1,4 @@
-package com.example.appnews
+package com.example.appnews.view
 
 import android.os.Bundle
 import android.view.View
@@ -6,11 +6,12 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.appnews.NoticiasAdapter
+import com.example.appnews.R
 import com.example.appnews.databinding.FragmentNoticiasFavoritasBinding
 import com.example.appnews.model.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class NoticiasFavoritasFragment : Fragment(R.layout.fragment_noticias_favoritas) {

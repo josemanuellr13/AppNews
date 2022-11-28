@@ -1,4 +1,4 @@
-package com.example.appnews
+package com.example.appnews.model
 
 import android.icu.text.SimpleDateFormat
 import android.view.LayoutInflater

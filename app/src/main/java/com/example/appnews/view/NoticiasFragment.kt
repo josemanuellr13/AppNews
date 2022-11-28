@@ -1,4 +1,4 @@
-package com.example.appnews
+package com.example.appnews.view
 
 import android.os.Bundle
 import android.util.Log
@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.appnews.model.CategoriasAdapter
+import com.example.appnews.NoticiasAdapter
+import com.example.appnews.R
 import com.example.appnews.databinding.FragmentNoticiasBinding
-import com.example.appnews.model.ArticleModel
 import com.example.appnews.model.CategoriaModel
 import com.example.appnews.model.NewsDbClient
 import com.example.appnews.model.Result
@@ -95,7 +97,9 @@ class NoticiasFragment : Fragment(R.layout.fragment_noticias) {
             if(valor == null)
                  result = withContext(Dispatchers.IO) { NewsDbClient.service.popularNews(getString(R.string.api_key)) }
             else
-                 result = withContext(Dispatchers.IO) { NewsDbClient.service.customNews(valor,getString(R.string.api_key)) }
+                 result = withContext(Dispatchers.IO) { NewsDbClient.service.customNews(valor,getString(
+                     R.string.api_key
+                 )) }
 
 
             // Controlamos la cantidad de información mostrada

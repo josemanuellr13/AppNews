@@ -1,16 +1,13 @@
-package com.example.appnews
+package com.example.appnews.model
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.appnews.databinding.ApartadoCategoriaItemBinding
+import com.example.appnews.R
 import com.example.appnews.databinding.FiltroNoticiasItemBinding
-import com.example.appnews.model.CategoriaModel
 
 class CategoriasAdapter( val listener: (CategoriaModel) -> Unit) : RecyclerView.Adapter<CategoriasAdapter.ViewHolder>(){
     var categorias = emptyList<CategoriaModel>()
@@ -18,7 +15,7 @@ class CategoriasAdapter( val listener: (CategoriaModel) -> Unit) : RecyclerView.
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         //val view = LayoutInflater.from(parent.context).inflate(R.layout.apartado_categoria_item,parent,false)
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.filtro_noticias_item ,parent,false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.filtro_noticias_item,parent,false)
 
         return ViewHolder(view)
     }
@@ -55,7 +52,9 @@ class CategoriasAdapter( val listener: (CategoriaModel) -> Unit) : RecyclerView.
             binding.texto.text = categoria.texto
 
             if(categoria.seleccionado){
-                binding.texto.setBackgroundColor(ContextCompat.getColor(view.context, R.color.blue_500))
+                binding.texto.setBackgroundColor(ContextCompat.getColor(view.context,
+                    R.color.blue_500
+                ))
                 binding.texto.setTextColor(Color.WHITE)
             }else{
                 binding.texto.setTextColor(Color.DKGRAY)

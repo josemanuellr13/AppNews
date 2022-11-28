@@ -5,14 +5,10 @@ import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.appnews.NoticiasFavoritasFragment
-import com.example.appnews.NoticiasFragment
 import com.example.appnews.R
 import com.example.appnews.databinding.ActivityHomeBinding
 import com.example.appnews.model.ArticleModel
-import com.example.appnews.model.CategoriaModel
 import com.example.appnews.model.ListaNoticiasFavoritasModel
 
 class MainHome : AppCompatActivity() {

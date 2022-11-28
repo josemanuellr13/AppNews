@@ -1,9 +1,7 @@
 package com.example.appnews.model
 
 import android.os.Parcelable
-import com.example.appnews.Source
 import kotlinx.parcelize.Parcelize
-import java.io.Serializable
 
 @Parcelize
 data class ArticleModel (
