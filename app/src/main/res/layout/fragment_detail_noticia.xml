@@ -7,22 +7,26 @@
     android:background="@color/background"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/cabecera"
+
+    <FrameLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
+            android:id="@+id/btnFav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_anchor="@id/cabecera"
-            app:layout_anchorGravity="bottom|end"
-            android:clickable="true"
-            app:srcCompat="@drawable/ic_baseline_favorite_24"
+            android:layout_gravity="right|bottom"
             android:background="@drawable/shape"
-            android:backgroundTint="@color/white"/>
+            android:backgroundTint="@color/white"
+            android:clickable="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            app:backgroundTint="@color/blue_500"
+            app:layout_anchorGravity="bottom|end"
+            app:srcCompat="@drawable/ic_baseline_favorite_24" />
 
         <ImageView
             android:id="@+id/ivFoto"
@@ -30,7 +34,7 @@
             android:layout_height="200dp"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-    </LinearLayout>
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -75,7 +79,9 @@
                 android:text="Publicado el 26/10/2022"
                 />
         </LinearLayout>
-
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <TextView
             android:id="@+id/tvContenido"
             android:layout_width="match_parent"
@@ -83,7 +89,7 @@
             android:paddingTop="10dp"
             android:text="Contenido"
             android:layout_marginBottom="10dp"/>
-
+        </ScrollView>
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"

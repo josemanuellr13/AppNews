@@ -22,6 +22,7 @@ class DetailNoticiaFragment : Fragment(R.layout.fragment_detail_noticia) {
         val binding = FragmentDetailNoticiaBinding.bind(view)
         val noticia = arguments?.getParcelable<ArticleModel>(noticia)
 
+
         if (noticia != null) {
             binding.tvAutor.text ="Por " + noticia.source.name
             binding.tvTitulo.text = noticia.title
@@ -32,6 +33,11 @@ class DetailNoticiaFragment : Fragment(R.layout.fragment_detail_noticia) {
             }else{
                 binding.ivFoto.glide("https://tecnodemos.junior-report.media/wp-content/uploads/2020/08/Noticia-scaled.jpg")
             }
+        }
+
+        // Al clickear btn de fav
+        binding.btnFav.setOnClickListener(){
+
         }
 
     }
