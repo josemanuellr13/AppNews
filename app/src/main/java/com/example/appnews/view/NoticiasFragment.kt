@@ -8,7 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.appnews.model.CategoriasAdapter
-import com.example.appnews.NoticiasAdapter
+import com.example.appnews.model.NoticiasAdapter
 import com.example.appnews.R
 import com.example.appnews.databinding.FragmentNoticiasBinding
 import com.example.appnews.model.CategoriaModel

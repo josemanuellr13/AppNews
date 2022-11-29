@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.appnews.NoticiasAdapter
+import com.example.appnews.model.NoticiasAdapter
 import com.example.appnews.R
 import com.example.appnews.databinding.FragmentNoticiasFavoritasBinding
 import com.example.appnews.model.*
+import com.example.appnews.viewmodel.ListaNoticiasFavsViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -27,6 +29,7 @@ class NoticiasFavoritasFragment : Fragment(R.layout.fragment_noticias_favoritas)
 
     private lateinit var binding : FragmentNoticiasFavoritasBinding
 
+    private val viewModel: ListaNoticiasFavsViewModel by activityViewModels()
 
 
     // Metodos

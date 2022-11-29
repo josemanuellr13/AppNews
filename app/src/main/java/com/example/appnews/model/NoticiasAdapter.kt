@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.appnews.R
 import com.example.appnews.databinding.NoticiaItemBinding
 import com.example.appnews.model.ArticleModel
 import java.time.LocalDate
