@@ -16,7 +16,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class NoticiasAdapter(val listener :(ArticleModel) -> Unit) : RecyclerView.Adapter<NoticiasAdapter.ViewHolder>(){
-    var noticias = emptyList<ArticleModel>()
+    var noticias = listOf<ArticleModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.noticia_item,parent,false)

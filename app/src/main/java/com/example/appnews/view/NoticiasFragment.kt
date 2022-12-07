@@ -105,10 +105,9 @@ class NoticiasFragment : Fragment(R.layout.fragment_noticias) {
             // Controlamos la cantidad de información mostrada
             if(result!!.articles.size > 20) {
                 adapterNoticias.noticias = result!!.articles.subList(0, 20)
-
             }else{
-                    adapterNoticias.noticias = result!!.articles
-                }
+                adapterNoticias.noticias = result!!.articles
+            }
 
             // Notificamos cambios
             adapterNoticias.notifyDataSetChanged()

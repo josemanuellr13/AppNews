@@ -5,6 +5,9 @@ plugins {
 }
 
 android {
+    lintOptions {
+        disable 'NullSafeMutableLiveData'
+    }
     namespace 'com.example.appnews'
     compileSdk 32
 

@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class ListaNoticiasFavoritasModel (
 
-    val lista : List<ArticleModel>
+    var lista : List<ArticleModel>
 
 ): Parcelable {
 

@@ -26,7 +26,8 @@
             android:layout_marginBottom="10dp"
             app:backgroundTint="@color/blue_500"
             app:layout_anchorGravity="bottom|end"
-            app:srcCompat="@drawable/ic_baseline_favorite_24" />
+            app:srcCompat="@drawable/ic_baseline_favorite_selected"
+            />
 
         <ImageView
             android:id="@+id/ivFoto"
@@ -91,7 +92,7 @@
             android:layout_marginBottom="10dp"/>
         </ScrollView>
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnAbrirUrl"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:backgroundTint="@color/blue_500"

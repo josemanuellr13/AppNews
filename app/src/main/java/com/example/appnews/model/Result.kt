@@ -5,5 +5,5 @@ data class Result(
 
     val status : String,
     val totalResults : Int,
-    val articles : List<ArticleModel>
+    val articles : MutableList<ArticleModel>
 )

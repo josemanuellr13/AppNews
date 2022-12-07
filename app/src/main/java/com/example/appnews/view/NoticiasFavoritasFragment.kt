@@ -1,6 +1,7 @@
 package com.example.appnews.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -11,15 +12,18 @@ import com.example.appnews.model.NoticiasAdapter
 import com.example.appnews.R
 import com.example.appnews.databinding.FragmentNoticiasFavoritasBinding
 import com.example.appnews.model.*
+import com.example.appnews.viewmodel.Lista2NoticiasFavsViewModel
 import com.example.appnews.viewmodel.ListaNoticiasFavsViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.*
 
 
 class NoticiasFavoritasFragment : Fragment(R.layout.fragment_noticias_favoritas) {
     companion object{
         const val LISTA_noticias = "noticiasFavs"
     }
+
 
     // Atributos
     private val adapterNoticias = NoticiasAdapter(){
@@ -29,55 +33,48 @@ class NoticiasFavoritasFragment : Fragment(R.layout.fragment_noticias_favoritas)
 
     private lateinit var binding : FragmentNoticiasFavoritasBinding
 
-    private val viewModel: ListaNoticiasFavsViewModel by activityViewModels()
+    private val viewModel: Lista2NoticiasFavsViewModel by activityViewModels()
 
 
     // Metodos
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val listaNoticias = arguments?.getParcelable<ListaNoticiasFavoritasModel>(LISTA_noticias)
+
+       // val listaNoticias = arguments?.getParcelable<ListaNoticiasFavoritasModel>(LISTA_noticias)
 
         binding = FragmentNoticiasFavoritasBinding.bind(view)
         binding.rcNoticias.adapter = adapterNoticias
 
         if(adapterNoticias.itemCount == 0) {
-            if (listaNoticias != null) {
-                loadNoticiasFavoritas(listaNoticias.lista)
-            }
+            loadNoticiasFavoritas()
         }
 
         // Al refrescar el RecyclerView
         binding.srla.setOnRefreshListener {
-            if (listaNoticias != null) {
-                loadNoticiasFavoritas(listaNoticias.lista)
-            }
+            loadNoticiasFavoritas()
             binding.srla.isRefreshing = false
-
         }
 
-//        Toast.makeText(getActivity(), "Cant noticias favs " + listaFavoritas?.size(), Toast.LENGTH_SHORT).show();
     }
 
 
-
-
-    private fun loadNoticiasFavoritas(listaNoticias: List<ArticleModel>){
-        var result: Result? = null
-
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main){
+    private fun loadNoticiasFavoritas() {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
             binding.progressBar.visibility = View.VISIBLE
+            var lista = viewModel.listaNoticias.value
 
-            adapterNoticias.noticias = listaNoticias
+            if (lista != null) {
+                adapterNoticias.noticias = lista
+            }
 
             // Notificamos cambios
             adapterNoticias.notifyDataSetChanged()
             binding.progressBar.visibility = View.GONE
 
         }
-
-
-
     }
+
+
 }
 
 
