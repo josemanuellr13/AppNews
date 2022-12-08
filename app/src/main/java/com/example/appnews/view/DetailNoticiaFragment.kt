@@ -44,7 +44,7 @@ class DetailNoticiaFragment : Fragment(R.layout.fragment_detail_noticia) {
             // Asignamos valores
             binding.tvAutor.text ="Por " + noticia.source.name
             binding.tvTitulo.text = noticia.title
-            binding.tvContenido.text = noticia.description + noticia.content
+            binding.tvContenido.text = noticia.description 
 
             if(noticia.urlToImage != null){
                 binding.ivFoto.glide(noticia.urlToImage)
