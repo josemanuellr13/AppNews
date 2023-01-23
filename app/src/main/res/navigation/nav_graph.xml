@@ -52,4 +52,5 @@
         android:id="@+id/registerFragment"
         android:name="com.example.appnews.view.RegisterFragment"
         android:label="RegisterFragment" />
+
 </navigation>
