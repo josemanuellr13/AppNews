@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import com.example.appnews.R
 import com.example.appnews.databinding.FragmentLoginBinding
@@ -29,11 +27,17 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         val btnLogin = binding.btnLogin
         val tvCrearCuenta = binding.tvCrearCuenta
 
-        val navController = Navigation.findNavController(view)
-        val navControllerx = NavHostFragment.findNavController(R.id.fg)
+        val fragmentManager = fragmentManager
 
         tvCrearCuenta.setOnClickListener(){
-           // navController.navigate()
+            val newFragment = RegisterFragment()
+            val transaction = fragmentManager?.beginTransaction()
+            if (transaction != null) {
+                transaction.replace(R.id.fg, newFragment)
+                transaction.addToBackStack(null)
+                transaction.commit()
+            }
+
         }
 
 
