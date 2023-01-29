@@ -20,6 +20,10 @@ class InicioActivity  : AppCompatActivity() {
         binding = ActivityInicioBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val fragment = LoginFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fg, fragment)
+            .commit()
       /*  val navHostFragment = supportFragmentManager.findFragmentById(R.id.fg) as NavHostFragment
         val navController = navHostFragment.navController */
     }
