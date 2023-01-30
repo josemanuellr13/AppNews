@@ -32,7 +32,6 @@ class NoticiasFavoritasFragment : Fragment(R.layout.fragment_noticias_favoritas)
     }
 
     private lateinit var binding : FragmentNoticiasFavoritasBinding
-
     private val viewModel: Lista2NoticiasFavsViewModel by activityViewModels()
 
 

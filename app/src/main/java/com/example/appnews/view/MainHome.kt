@@ -44,12 +44,9 @@ class MainHome : AppCompatActivity() {
                 "name" to "Juan W Media",
                 "noticias" to emptyList<ArticleModel>()
             )
-            db.collection("users").document(currentUser.uid).set(user)
+            db.collection("users").document(currentUser.email.toString()).set(user)
                 .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully written!") }
                 .addOnFailureListener { e -> Log.w("TAG", "Error writing document", e) }
-
-            Toast.makeText(this, "Usuario: " + currentUser.email, Toast.LENGTH_SHORT).show()
-
         }
 
         viewModel.init()
