@@ -3,6 +3,7 @@ package com.example.appnews.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -18,6 +19,8 @@ import com.example.appnews.model.ListaNoticiasFavoritasModel
 import com.example.appnews.model.Source
 import com.example.appnews.viewmodel.Lista2NoticiasFavsViewModel
 import com.example.appnews.viewmodel.ListaNoticiasFavsViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MainHome : AppCompatActivity() {
 
@@ -29,6 +32,25 @@ class MainHome : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        // Conexion
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val db = FirebaseFirestore.getInstance()
+
+
+        if(currentUser != null){
+            val user = hashMapOf(
+                "email" to "juanwmedia@gmail.com",
+                "name" to "Juan W Media",
+                "noticias" to emptyList<ArticleModel>()
+            )
+            db.collection("users").document(currentUser.uid).set(user)
+                .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully written!") }
+                .addOnFailureListener { e -> Log.w("TAG", "Error writing document", e) }
+
+            Toast.makeText(this, "Usuario: " + currentUser.email, Toast.LENGTH_SHORT).show()
+
+        }
 
         viewModel.init()
 
