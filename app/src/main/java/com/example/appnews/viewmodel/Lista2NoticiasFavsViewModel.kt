@@ -38,6 +38,7 @@ class Lista2NoticiasFavsViewModel : ViewModel() {
             .addOnSuccessListener { Log.i("resultado", "Valor agregado exitosamente") }
             .addOnFailureListener { Log.i("resultado", "Error al agregar valor", it) }
         mutableListaNoticias.value?.plus(noticia)
+        Log.i("prueba", "¿Contiene listanoticias la noticia? " + listaNoticias.value?.contains(noticia).toString() )
         init()
     }
 

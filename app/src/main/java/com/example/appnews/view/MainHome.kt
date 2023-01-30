@@ -39,6 +39,9 @@ class MainHome : AppCompatActivity() {
 
 
         if(currentUser != null){
+
+            // IMPLEMENTAR EN REGISTRO PAQ X DEFECTO TOD0S USER LO TENGA
+            /*
             val user = hashMapOf(
                 "email" to "juanwmedia@gmail.com",
                 "name" to "Juan W Media",
@@ -46,7 +49,7 @@ class MainHome : AppCompatActivity() {
             )
             db.collection("users").document(currentUser.email.toString()).set(user)
                 .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully written!") }
-                .addOnFailureListener { e -> Log.w("TAG", "Error writing document", e) }
+                .addOnFailureListener { e -> Log.w("TAG", "Error writing document", e) }*/
         }
 
         viewModel.init()

@@ -33,22 +33,22 @@ class DetailNoticiaFragment : Fragment(R.layout.fragment_detail_noticia) {
         if (noticia != null) {
             // Comprobamos si la noticia esta en la lista de favoritas
             viewModel.listaNoticias.observe(viewLifecycleOwner, Observer {
-                if(it.contains(noticia)){
+                if (it.contains(noticia)) {
                     binding.btnFav.setColorFilter(Color.RED)
-                }else{
+                } else {
                     binding.btnFav.setColorFilter(Color.GRAY)
                 }
             })
 
 
             // Asignamos valores
-            binding.tvAutor.text ="Por " + noticia.source.name
+            binding.tvAutor.text = "Por " + noticia.source.name
             binding.tvTitulo.text = noticia.title
             binding.tvContenido.text = noticia.description
 
-            if(noticia.urlToImage != null){
+            if (noticia.urlToImage != null) {
                 binding.ivFoto.glide(noticia.urlToImage)
-            }else{
+            } else {
                 binding.ivFoto.glide("https://tecnodemos.junior-report.media/wp-content/uploads/2020/08/Noticia-scaled.jpg")
             }
 
