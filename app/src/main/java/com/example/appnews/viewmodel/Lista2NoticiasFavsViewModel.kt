@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.appnews.NewsRepository
 import com.example.appnews.model.ArticleModel
 import com.example.appnews.model.Source
 import com.google.firebase.auth.FirebaseAuth
@@ -16,38 +17,27 @@ import kotlinx.coroutines.launch
 class Lista2NoticiasFavsViewModel : ViewModel() {
 
     private val mutableListaNoticias = MutableLiveData<List<ArticleModel>>()
-
     val listaNoticias: LiveData<List<ArticleModel>> get() = mutableListaNoticias
-    val currentUser = FirebaseAuth.getInstance().currentUser
-    val db = FirebaseFirestore.getInstance()
+    val repo : NewsRepository = NewsRepository
 
     // Cargamos las noticias
     fun init(){
-        val collectionReference = db.collection("users").document(currentUser?.email.toString())
-
-        collectionReference.get().addOnSuccessListener { result ->
-            val valorAtributo = result.get("noticias") as List<ArticleModel>
-            mutableListaNoticias.value = valorAtributo
-        }
-
+        mutableListaNoticias.value = repo.getNoticiasFavoritas()
+        Log.i("NOTICIAS", mutableListaNoticias.value.toString())
     }
 
+    // Agregamos noticia
     fun addNoticia(noticia : ArticleModel){
-        val documentReference = db.collection("users").document(currentUser?.email.toString())
-        documentReference.update("noticias", FieldValue.arrayUnion(noticia))
-            .addOnSuccessListener { Log.i("resultado", "Valor agregado exitosamente") }
-            .addOnFailureListener { Log.i("resultado", "Error al agregar valor", it) }
+        repo.addNoticiaFavorita(noticia)
         mutableListaNoticias.value?.plus(noticia)
         Log.i("prueba", "¿Contiene listanoticias la noticia? " + listaNoticias.value?.contains(noticia).toString() )
         init()
     }
 
+    // Borramos noticia
     fun removeNoticia(noticia : ArticleModel){
-        val lista =  mutableListaNoticias.value?.toMutableList()
-        if (lista != null) {
-            lista.remove(noticia)
-        }
-        mutableListaNoticias.value = lista
+    //    repo.removeNoticiaFavorita(noticia)
+        mutableListaNoticias.value = repo.getNoticiasFavoritas()
 
     }
 

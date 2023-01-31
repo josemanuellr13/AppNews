@@ -15,5 +15,14 @@ data class ArticleModel (
     val publishedAt : String,
     val content : String?
 ): Parcelable {
-
+    constructor(): this(
+        source = Source(),
+        author = null,
+        title = "",
+        description = "",
+        url = "",
+        urlToImage = null,
+        publishedAt = "",
+        content = null
+    )
 }

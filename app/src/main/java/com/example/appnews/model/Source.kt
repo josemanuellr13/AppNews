@@ -7,4 +7,9 @@ data class Source (
 
     val id : String?,
     val name : String
-) : Serializable
+) : Serializable {
+    constructor(): this(
+        id = null,
+        name = ""
+    )
+}
