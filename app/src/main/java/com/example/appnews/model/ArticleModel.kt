@@ -1,6 +1,5 @@
-package com.example.appnews.model
-
 import android.os.Parcelable
+import com.example.appnews.model.Source
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -13,7 +12,8 @@ data class ArticleModel (
     val url : String,
     val urlToImage : String?,
     val publishedAt : String,
-    val content : String?
+    val content : String?,
+    private var noticiasFavoritas: List<ArticleModel>? = null
 ): Parcelable {
     constructor(): this(
         source = Source(),
@@ -25,4 +25,12 @@ data class ArticleModel (
         publishedAt = "",
         content = null
     )
+
+    fun setNoticiasFavoritas(noticiasFavoritas: List<ArticleModel>?) {
+        this.noticiasFavoritas = noticiasFavoritas
+    }
+
+    fun getNoticiasFavoritas(): List<ArticleModel>? {
+        return noticiasFavoritas
+    }
 }

@@ -1,9 +1,11 @@
 package com.example.appnews.view
 
+import ArticleModel
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
@@ -12,7 +14,7 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.appnews.R
 import com.example.appnews.databinding.FragmentDetailNoticiaBinding
-import com.example.appnews.model.ArticleModel
+
 import com.example.appnews.viewmodel.Lista2NoticiasFavsViewModel
 
 
@@ -29,17 +31,15 @@ class DetailNoticiaFragment : Fragment(R.layout.fragment_detail_noticia) {
         val binding = FragmentDetailNoticiaBinding.bind(view)
         val noticia = arguments?.getParcelable<ArticleModel>(noticia)
 
-
         if (noticia != null) {
             // Comprobamos si la noticia esta en la lista de favoritas
-            viewModel.listaNoticias.observe(viewLifecycleOwner, Observer {
-                if (it.contains(noticia)) {
+            viewModel.listaNoticias.observe(viewLifecycleOwner) {
+                if (viewModel.listaNoticias.value?.contains(noticia) == true) {
                     binding.btnFav.setColorFilter(Color.RED)
                 } else {
                     binding.btnFav.setColorFilter(Color.GRAY)
                 }
-            })
-
+            }
 
             // Asignamos valores
             binding.tvAutor.text = "Por " + noticia.source.name
@@ -56,11 +56,11 @@ class DetailNoticiaFragment : Fragment(R.layout.fragment_detail_noticia) {
 
         // Añadimos/quitamos de noticias favoritas
         binding.btnFav.setOnClickListener(){
+            Log.i("Lista noticias", "Es: " + viewModel.listaNoticias.value?.toString())
 
             if(viewModel.listaNoticias.value?.contains(noticia) == true){
                 if (noticia != null)
                     viewModel.removeNoticia(noticia)
-
             }else{
                 if (noticia != null)
                     viewModel.addNoticia(noticia)

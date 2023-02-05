@@ -1,9 +1,11 @@
 package com.example.appnews.view
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -14,6 +16,8 @@ import com.example.appnews.databinding.FragmentNoticiasBinding
 import com.example.appnews.model.CategoriaModel
 import com.example.appnews.model.NewsDbClient
 import com.example.appnews.model.Result
+import com.example.appnews.viewmodel.Lista2NoticiasFavsViewModel
+import com.example.appnews.viewmodel.TagsViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -21,36 +25,53 @@ import kotlinx.coroutines.withContext
 
 class NoticiasFragment : Fragment(R.layout.fragment_noticias) {
     // Atributos
-    private val adapterCategorias = CategoriasAdapter(){
-        loadNoticias(it.texto)
+    //private val adapterCategorias = CategoriasAdapter(cargarNoticiasPorCat, abrirAddTag)
+    private val adapterCategorias = CategoriasAdapter(){ it ->
+
+        Log.i("TAG clickeada",it.toString())
+        if(it.texto === "Añadir tag"){
+            findNavController().navigate(R.id.action_noticiasFragment_to_addTagFragment)
+        }else{
+            loadNoticias(it.texto)
+        }
     }
+
+    /*
+    val abrirAddTag = {
+        findNavController().navigate(R.id.action_noticiasFragment_to_addTagFragment)
+    }
+
+    val cargarNoticiasPorCat = { categoria: CategoriaModel ->
+        loadNoticias(categoria.texto)
+    } */
 
     private val adapterNoticias = NoticiasAdapter(){
         val bundle = Bundle()
         bundle.putParcelable("noticia_clickeada",it)
         Log.i("NOTICIA clickeada",it.toString())
         findNavController().navigate(R.id.action_noticiasFragment_to_detailNoticiaFragment, bundle)
-    //    findNavController().navigate(R.id.action_noticiasFragment_to_detailNoticiaFragment)
-
     }
 
     private lateinit var binding : FragmentNoticiasBinding
-    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
-
+    private val tagViewModel: TagsViewModel by activityViewModels()
 
     // Metodos
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentNoticiasBinding.bind(view)
-
         binding.rcCategorias.adapter = adapterCategorias
         binding.rcNoticias.adapter = adapterNoticias
 
-        loadCategorias()
+       tagViewModel.init()
 
         if(adapterNoticias.itemCount == 0) {
             loadNoticias(null)
+        }
+
+        tagViewModel.listaTags.observe(viewLifecycleOwner) {
+            adapterCategorias.categorias = it.map { tag -> CategoriaModel(tag,false) }
+            adapterNoticias.notifyDataSetChanged()
         }
 
         // Al clickear el btn de buscar
@@ -67,20 +88,7 @@ class NoticiasFragment : Fragment(R.layout.fragment_noticias) {
 
     }
 
-    // Cargamos las categorias
-    private fun loadCategorias(){
-        val categorias : List<CategoriaModel> = listOf(
-            CategoriaModel("Trending",true),
-            CategoriaModel("Worldwide",false),
-            CategoriaModel("España",false),
-            CategoriaModel("Política",false),
-            CategoriaModel("Informática",false),
-            CategoriaModel("Fútbol",false)
 
-        )
-
-        adapterCategorias.categorias = categorias
-    }
 
 
 

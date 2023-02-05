@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_noticiasFragment_to_noticiasFavoritasFragment"
             app:destination="@id/noticiasFavoritasFragment" />
+        <action
+            android:id="@+id/action_noticiasFragment_to_addTagFragment"
+            app:destination="@id/addTagFragment" />
     </fragment>
     <fragment
         android:id="@+id/noticiasFavoritasFragment"
@@ -52,5 +55,13 @@
         android:id="@+id/registerFragment"
         android:name="com.example.appnews.view.RegisterFragment"
         android:label="RegisterFragment" />
+    <fragment
+        android:id="@+id/addTagFragment"
+        android:name="com.example.appnews.view.AddTagFragment"
+        android:label="AddTagFragment" >
+        <action
+            android:id="@+id/action_addTagFragment_to_noticiasFragment"
+            app:destination="@id/noticiasFragment" />
+    </fragment>
 
 </navigation>

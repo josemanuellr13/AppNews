@@ -14,29 +14,29 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class Lista2NoticiasFavsViewModel : ViewModel() {
+class TagsViewModel : ViewModel() {
 
-    private val mutableListaNoticias = MutableLiveData<List<ArticleModel>>()
-    val listaNoticias: LiveData<List<ArticleModel>> get() = mutableListaNoticias
+    private val mutableListaTags = MutableLiveData<List<String>>()
+    val listaTags: LiveData<List<String>> get() = mutableListaTags
     val repo : NewsRepository = NewsRepository
 
     // Cargamos las noticias
     fun init(){
         val funcDatosCargados = {
-            listaNoticiasx: List<ArticleModel> -> mutableListaNoticias.value = listaNoticiasx
+                listaTags: List<String> -> mutableListaTags.value = listaTags
         }
-        repo.getNoticiasFavoritas(funcDatosCargados)
+        repo.getTags(funcDatosCargados)
     }
 
     // Agregamos noticia
-    fun addNoticia(noticia : ArticleModel){
-        repo.addNoticiaFavorita(noticia)
+    fun addTag(tag : String){
+        repo.addTag(tag)
         init()
     }
 
     // Borramos noticia
-    fun removeNoticia(noticia : ArticleModel){
-        repo.removeNoticiaFavorita(noticia)
+    fun removeTag(tag : String){
+        repo.removeTag(tag)
         init()
     }
 

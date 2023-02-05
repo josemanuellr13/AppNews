@@ -16,7 +16,7 @@ import com.example.appnews.viewmodel.Lista2NoticiasFavsViewModel
 import com.example.appnews.viewmodel.ListaNoticiasFavsViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
+import ArticleModel
 
 
 class NoticiasFavoritasFragment : Fragment(R.layout.fragment_noticias_favoritas) {

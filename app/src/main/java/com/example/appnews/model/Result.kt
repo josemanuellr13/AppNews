@@ -1,5 +1,7 @@
 package com.example.appnews.model
 
+import ArticleModel
+
 
 data class Result(
 

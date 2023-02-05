@@ -36,7 +36,7 @@ de noticias para que puedas buscar noticias relacionadas fácilmente. ¡Agrega u
 
 
     <EditText
-        android:id="@+id/clave"
+        android:id="@+id/tvTag"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -46,7 +46,7 @@ de noticias para que puedas buscar noticias relacionadas fácilmente. ¡Agrega u
         android:padding="10dp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnAgregarTag"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:text="AÑADIR TAG"

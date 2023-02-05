@@ -1,5 +1,6 @@
 package com.example.appnews.model
 
+import ArticleModel
 import android.icu.text.SimpleDateFormat
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.appnews.R
 import com.example.appnews.databinding.NoticiaItemBinding
-import com.example.appnews.model.ArticleModel
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+
 
 class NoticiasAdapter(val listener :(ArticleModel) -> Unit) : RecyclerView.Adapter<NoticiasAdapter.ViewHolder>(){
     var noticias = listOf<ArticleModel>()
