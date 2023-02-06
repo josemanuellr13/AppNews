@@ -1,14 +1,16 @@
 package com.example.appnews.view
 
-import android.graphics.Color
+import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.appnews.model.CategoriasAdapter
 import com.example.appnews.model.NoticiasAdapter
 import com.example.appnews.R
@@ -16,7 +18,6 @@ import com.example.appnews.databinding.FragmentNoticiasBinding
 import com.example.appnews.model.CategoriaModel
 import com.example.appnews.model.NewsDbClient
 import com.example.appnews.model.Result
-import com.example.appnews.viewmodel.Lista2NoticiasFavsViewModel
 import com.example.appnews.viewmodel.TagsViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -88,10 +89,6 @@ class NoticiasFragment : Fragment(R.layout.fragment_noticias) {
 
     }
 
-
-
-
-
     // Si el valor es nulo tomará las noticias + populares
     // Si contiene valor, buscará las noticias relacionadas con el valor
     private fun loadNoticias(valor: String?){
@@ -108,7 +105,6 @@ class NoticiasFragment : Fragment(R.layout.fragment_noticias) {
                  result = withContext(Dispatchers.IO) { NewsDbClient.service.customNews(valor,getString(
                      R.string.api_key
                  )) }
-
 
             // Controlamos la cantidad de información mostrada
             if(result!!.articles.size > 20) {

@@ -24,17 +24,6 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/tag" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:gravity="center"
-        android:textSize="16dp"
-        android:text="Agregar tags te permite guardar categorías
-de noticias para que puedas buscar noticias relacionadas fácilmente. ¡Agrega una tag!" />
-
-
     <EditText
         android:id="@+id/tvTag"
         android:layout_marginTop="20dp"
@@ -52,4 +41,17 @@ de noticias para que puedas buscar noticias relacionadas fácilmente. ¡Agrega u
         android:text="AÑADIR TAG"
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/blue_500"/>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:gravity="center"
+        android:textSize="16dp"
+        android:text="Agregar tags te permite guardar categorías
+de noticias para que puedas buscar noticias relacionadas fácilmente. ¡Agrega una tag!" />
+
+
+
 </LinearLayout>

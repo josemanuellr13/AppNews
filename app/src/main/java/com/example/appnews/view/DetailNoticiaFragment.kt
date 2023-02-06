@@ -34,6 +34,7 @@ class DetailNoticiaFragment : Fragment(R.layout.fragment_detail_noticia) {
         if (noticia != null) {
             // Comprobamos si la noticia esta en la lista de favoritas
             viewModel.listaNoticias.observe(viewLifecycleOwner) {
+                Log.i("ListaNoticias",viewModel.listaNoticias.value.toString())
                 if (viewModel.listaNoticias.value?.contains(noticia) == true) {
                     binding.btnFav.setColorFilter(Color.RED)
                 } else {

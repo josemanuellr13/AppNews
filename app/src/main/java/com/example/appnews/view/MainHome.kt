@@ -1,9 +1,12 @@
 package com.example.appnews.view
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.os.bundleOf
@@ -33,7 +36,6 @@ class MainHome : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         // Conexion
         val currentUser = FirebaseAuth.getInstance().currentUser
         val db = FirebaseFirestore.getInstance()
@@ -59,9 +61,8 @@ class MainHome : AppCompatActivity() {
 
         }
 */
-        viewModel.init()
 
-       // viewModel.addNoticia(ArticleModel(Source("1","CDN"),"Emilie Martin","Announcing the Keyword Research Certification: Create a Personalized Keyword Strategy","Focusing on your audience and using keyword data to your advantage will make for much more successful campaigns than if you were to focus on the typical desirable keywords. With that, we are so excited to announce the launch of our brand-new Keyword Research …","https://moz.com/blog/moz-keyword-research-certification","https://moz.com/images/blog/banners/KWR-Cert-BlogHeader-1180x400.png?w=1200&h=630&q=82&auto=format&fit=crop&dm=1666957435&s=7851da1c97758855b87e54a8de10d135","2022-222-222-2","The heart of your SEO. The foundation for building ideas and thoughts in your industry. The vital link between you and your audience.What are we talking about? Keywords, of course!"))
+        viewModel.init()
 
        // Reemplazamos el primer fragment
         replaceFragment(NoticiasFragment(),null)
@@ -85,9 +86,21 @@ class MainHome : AppCompatActivity() {
             true
 
         }
+
+        closeKeyboard()
     }
 
+    fun closeKeyboard(){
+        val view = this.currentFocus
+        if (view == null) {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
+            if(imm.isActive){
+                imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+            }
+            imm.hideSoftInputFromWindow(view?.windowToken, 0)
+        }
+    }
 
 
     // Reemplazamos fragmento
