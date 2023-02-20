@@ -52,7 +52,6 @@ class RegisterFragment : Fragment(R.layout.fragment_registro) {
 
                 // To.do correcto
                 }else if(email.toString().isNotEmpty() && clave1.toString().isNotEmpty() && clave2.toString().isNotEmpty() && binding.checkBox.isChecked){
-                    Log.i("Registro", "email: $email, clave1: $clave1, clave2: $clave2")
                     auth.createUserWithEmailAndPassword(email.toString(), clave1.toString())
                         .addOnCompleteListener(activityContext){ task ->
                             if(task.isSuccessful) {

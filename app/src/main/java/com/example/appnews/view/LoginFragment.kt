@@ -29,7 +29,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentLoginBinding.bind(view)
-
         auth = Firebase.auth
         val tvEmail = binding.email
         val tvPassword = binding.clave
@@ -66,16 +65,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }else if(!tvEmail.text.toString().isNotEmpty() || !tvPassword.text.toString().isNotEmpty()){
                 Toast.makeText(context,  "Debes rellenar todos los datos", Toast.LENGTH_LONG).show()
             }
-            if(tvEmail.text.toString() == "a"){
-                auth.signInWithEmailAndPassword("a@e.com", "aaaaaa")
-                    .addOnCompleteListener(activityContext) { task ->
-                        if (task.isSuccessful) {
-                            Toast.makeText(context, "Usuario correcto", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(context, MainHome::class.java)
-                            startActivity(intent)
-                        }
-                    }
-            }
+
         }
     }
 }

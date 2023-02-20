@@ -41,28 +41,6 @@ class MainHome : AppCompatActivity() {
         val currentUser = FirebaseAuth.getInstance().currentUser
         val db = FirebaseFirestore.getInstance()
 
-/*
-        if(currentUser != null){
-
-            // IMPLEMENTAR EN REGISTRO PAQ X DEFECTO TOD0S USER LO TENGA
-
-            val user = hashMapOf(
-                "email" to currentUser.email.toString(),
-                "name" to "Juan W Media",
-                "tags" to listOf<String>("Tecnologia","Deportes","Entretenimiento"),
-            )
-
-           // usuario -> email -> noticiasFavoritas -> noticia
-            val parentDocument = db.collection("users").document(currentUser.email.toString())
-
-                parentDocument.set(user)
-                .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully written!") }
-                .addOnFailureListener { e -> Log.w("TAG", "Error writing document", e) }
-
-
-        }
-*/
-
         viewModel.init()
 
        // Reemplazamos el primer fragment
@@ -87,25 +65,12 @@ class MainHome : AppCompatActivity() {
             true
 
         }
-
-        //closeKeyboard2()
     }
 
-    fun closeKeyboard2() {
-        val activity = this
-        if (activity != null && activity.window != null) {
-            val view = activity.currentFocus
-            if (view != null) {
-                val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(view.windowToken, 0)
-            }
-            activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
-        }
-    }
+
 
 
     // Reemplazamos fragmento
-    // Si el ar
     private fun replaceFragment(fragment : Fragment, noticias : ListaNoticiasFavoritasModel?) {
         var bundle = Bundle()
         val fragmentManager = supportFragmentManager

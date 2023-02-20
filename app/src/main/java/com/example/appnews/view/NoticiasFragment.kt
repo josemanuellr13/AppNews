@@ -28,11 +28,11 @@ import kotlinx.coroutines.withContext
 
 
 class NoticiasFragment : Fragment(R.layout.fragment_noticias) {
-    // Atributos
-    //private val adapterCategorias = CategoriasAdapter(cargarNoticiasPorCat, abrirAddTag)
-    private val adapterCategorias = CategoriasAdapter(){ it ->
+    private lateinit var binding : FragmentNoticiasBinding
+    private val tagViewModel: TagsViewModel by activityViewModels()
 
-        Log.i("TAG clickeada",it.toString())
+    // Le pasamos una funcion al hacer click en una categoria
+    private val adapterCategorias = CategoriasAdapter(){ it ->
         if(it.texto === "Añadir tag"){
             findNavController().navigate(R.id.action_noticiasFragment_to_addTagFragment)
         }else{
@@ -40,24 +40,13 @@ class NoticiasFragment : Fragment(R.layout.fragment_noticias) {
         }
     }
 
-    /*
-    val abrirAddTag = {
-        findNavController().navigate(R.id.action_noticiasFragment_to_addTagFragment)
-    }
-
-    val cargarNoticiasPorCat = { categoria: CategoriaModel ->
-        loadNoticias(categoria.texto)
-    } */
-
+    // Le pasamos una funcion al hacer click en una noticia
     private val adapterNoticias = NoticiasAdapter(){
         val bundle = Bundle()
         bundle.putParcelable("noticia_clickeada",it)
-        Log.i("NOTICIA clickeada",it.toString())
         findNavController().navigate(R.id.action_noticiasFragment_to_detailNoticiaFragment, bundle)
     }
 
-    private lateinit var binding : FragmentNoticiasBinding
-    private val tagViewModel: TagsViewModel by activityViewModels()
 
     // Metodos
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -88,7 +77,6 @@ class NoticiasFragment : Fragment(R.layout.fragment_noticias) {
                 loadNoticias(binding.texto.text.toString())
             }else{
                 loadNoticias("noticias")
-
             }
 
         }
@@ -99,42 +87,13 @@ class NoticiasFragment : Fragment(R.layout.fragment_noticias) {
             binding.srla.isRefreshing = false
         }
 
-    // closeKeyboard2()
-    }
-    fun closeKeyboard2() {
-        val activity = activity
-        if (activity != null && activity.window != null) {
-            val view = activity.currentFocus
-            if (view != null) {
-                val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(view.windowToken, 0)
-            }
-            activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
-        }
     }
 
-    fun closeKeyboard3(view: View) {
-        val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
-    }
-    fun closeKeyboard(){
-        val view = activity?.currentFocus
-        if (view == null) {
-            val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
-            if(imm.isActive){
-                imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
-            }
-            imm.hideSoftInputFromWindow(view?.windowToken, 0)
-        }
-    }
 
     // Si el valor es nulo tomará las noticias + populares
     // Si contiene valor, buscará las noticias relacionadas con el valor
     private fun loadNoticias(valor: String?){
         var result: Result? = null
-
-
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main){
           binding.progressBar.visibility = View.VISIBLE
 
