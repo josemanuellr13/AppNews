@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.appnews.NewsRepository.db
 import com.example.appnews.R
 import com.example.appnews.databinding.FragmentRegistroBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -37,6 +38,10 @@ class RegisterFragment : Fragment(R.layout.fragment_registro) {
         // Al pulsar btn de registrar
         btnRegistrar.setOnClickListener(){
 
+                // Si checkbox no está marcado
+                if(!binding.checkBox.isChecked) { Toast.makeText( context,
+                        "Debes aceptar los términos y condiciones", Toast.LENGTH_SHORT).show()
+                }
                 // Si los campos no están rellenos
                 if(email.toString().isEmpty() || clave1.toString().isEmpty() || clave2.toString().isEmpty()){
                     Toast.makeText(context, "Debes rellenar todos los campos", Toast.LENGTH_SHORT).show()
@@ -46,12 +51,26 @@ class RegisterFragment : Fragment(R.layout.fragment_registro) {
                     Toast.makeText(context, "Las claves no coinciden", Toast.LENGTH_SHORT).show()
 
                 // To.do correcto
-                }else if(email.toString().isNotEmpty() && clave1.toString().isNotEmpty() && clave2.toString().isNotEmpty()) {
+                }else if(email.toString().isNotEmpty() && clave1.toString().isNotEmpty() && clave2.toString().isNotEmpty() && binding.checkBox.isChecked){
                     Log.i("Registro", "email: $email, clave1: $clave1, clave2: $clave2")
                     auth.createUserWithEmailAndPassword(email.toString(), clave1.toString())
                         .addOnCompleteListener(activityContext){ task ->
                             if(task.isSuccessful) {
                                 Toast.makeText(context, "Registro correcto", Toast.LENGTH_SHORT).show()
+
+                                // Crear registro de dicho usuario en Firebase
+                                val user = hashMapOf(
+                                    "email" to email.toString(),
+                                    "tags" to listOf<String>("Deporte"),
+                                )
+
+                                // usuario -> email -> noticiasFavoritas -> noticia
+                                val parentDocument = db.collection("users").document(email.toString())
+
+                                parentDocument.set(user)
+                                    .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully written!") }
+                                    .addOnFailureListener { e -> Log.w("TAG", "Error writing document", e) }
+
                                 val intent = Intent(context, MainHome::class.java)
                                 startActivity(intent)
                             }else{

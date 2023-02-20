@@ -3,10 +3,13 @@ package com.example.appnews.view
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -70,6 +73,10 @@ class NoticiasFragment : Fragment(R.layout.fragment_noticias) {
             loadNoticias(null)
         }
 
+        if(adapterCategorias.itemCount == 0) {
+            tagViewModel.init()
+        }
+
         tagViewModel.listaTags.observe(viewLifecycleOwner) {
             adapterCategorias.categorias = it.map { tag -> CategoriaModel(tag,false) }
             adapterNoticias.notifyDataSetChanged()
@@ -77,7 +84,12 @@ class NoticiasFragment : Fragment(R.layout.fragment_noticias) {
 
         // Al clickear el btn de buscar
         binding.buscar.setOnClickListener(){
-            loadNoticias(binding.texto.text.toString())
+            if(binding.texto.text.toString().isEmpty()){
+                loadNoticias(binding.texto.text.toString())
+            }else{
+                loadNoticias("noticias")
+
+            }
 
         }
 
@@ -87,6 +99,34 @@ class NoticiasFragment : Fragment(R.layout.fragment_noticias) {
             binding.srla.isRefreshing = false
         }
 
+    // closeKeyboard2()
+    }
+    fun closeKeyboard2() {
+        val activity = activity
+        if (activity != null && activity.window != null) {
+            val view = activity.currentFocus
+            if (view != null) {
+                val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(view.windowToken, 0)
+            }
+            activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+        }
+    }
+
+    fun closeKeyboard3(view: View) {
+        val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+    fun closeKeyboard(){
+        val view = activity?.currentFocus
+        if (view == null) {
+            val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+            if(imm.isActive){
+                imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+            }
+            imm.hideSoftInputFromWindow(view?.windowToken, 0)
+        }
     }
 
     // Si el valor es nulo tomará las noticias + populares
